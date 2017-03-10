@@ -21,9 +21,9 @@ The alan commands will now be available to use. To view an alignment, type, e.g.
 ```
 alan alignment.fasta
 
-alanrickman nucalignment.fasta
+alanrickman nuc_alignment.fasta
 
-alandaviesaaalignment.fasta
+alandavies aa_alignment.fasta
 etc.
 ```
 
