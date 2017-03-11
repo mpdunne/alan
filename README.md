@@ -37,7 +37,7 @@ source path_to_alan/alan.sh
 
 to your ~/.bashrc.
 
-Example
+Examples
 =====
 
 Alan Davies:
