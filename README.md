@@ -5,8 +5,6 @@ What does Alan do?
 Alan is a simple, light command line alignment viewer, for viewing fasta alignments in a linux terminal.
 
 https://github.com/mpdunne/Alan
-![alt text](https://i.imgsafe.org/40fb47a159.jpg "Alan Davies, for amino acids")
-![alt text](https://i.imgsafe.org/40fb5c40f5.jpg "Alan Rickman, for nucleotide alignments")
 
 Usage
 =====
@@ -38,3 +36,9 @@ source path_to_alan/alan.sh
 ```
 
 to your ~/.bashrc.
+
+![alt text](https://i.imgsafe.org/40fb47a159.jpg "Alan Davies, for amino acids")
+
+![alt text](https://i.imgsafe.org/40fb5c40f5.jpg "Alan Rickman, for nucleotide alignments")
+
+
