@@ -37,7 +37,14 @@ source path_to_alan/alan.sh
 
 to your ~/.bashrc.
 
+Pictures
+=====
+
+Alan Davies:
+
 ![alt text](https://i.imgsafe.org/40fb47a159.jpg "Alan Davies, for amino acids")
+
+Alan Rickman:
 
 ![alt text](https://i.imgsafe.org/40fb5c40f5.jpg "Alan Rickman, for nucleotide alignments")
 
