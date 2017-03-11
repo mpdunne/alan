@@ -13,7 +13,7 @@ Alan currently comes in two flavours: Alan Rickman and Alan Davies. Alan Rickman
 To run Alan in bash, simply type:
 
 ```
-bash alan.sh
+source alan.sh
 ```
 
 The Alan commands will now be available to use. To view an alignment, type, e.g.:
@@ -30,7 +30,7 @@ etc.
 To load Alan every time you turn on your terminal, add
 
 ```
-bash path_to_alan/alan.sh
+source path_to_alan/alan.sh
 ```
 
 to your ~/.bashrc.
