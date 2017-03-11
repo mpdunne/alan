@@ -8,7 +8,7 @@ https://github.com/mpdunne/Alan
 
 Usage
 =====
-Alan currently comes in two flavours: Alan Rickman and Alan Davies. Alan Rickman is designed for viewing nucleotide alignments; Alan Davies for amino acid alignments. The default Alan is Alan Davies.
+Alan currently comes in three flavours: Alan Rickman,  Alan Davies, and Alan Bennett. Alan Rickman is designed for viewing nucleotide alignments, Alan Davies for amino acid alignments. Alan Bennett is designed to automatically detect the type of alignment being inspected. The default Alan is Alan Bennett.
 
 To run Alan in bash, simply type:
 
@@ -20,6 +20,8 @@ The Alan commands will now be available to use. To view an alignment, type, e.g.
 
 ```
 alan alignment.fasta
+
+alanbennett alignment.fasta
 
 alanrickman nuc_alignment.fasta
 
