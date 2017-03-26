@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function alandavies {
-	paste <(grep ">" $1 | sed -r "s/$/\t###/g" | column -t -n -s $'\t' | sed -r "s/###//g") <(sed -r "s/^>(.*)$/£££>\1##K-STQNAILMFWVCRCEDGHYP###/g" $1 | tr '\n' ' ' | sed -r "s/£££/\n/g" | sed -r "s/ //g" | grep -v "\*[A-Z]" | grep -vP "^$" |
+	paste <(grep ">" $1 | sed -r "s/$/\t###/g" | column -t -n -s $'\t' | sed -r "s/###//g") <(sed -r "s/^>(.*)$/£££>\1##K-STQNAILMFWVCRCEDGHYP###/g" $1 | tr '\n' ' ' | sed -r "s/£££/\n/g" | sed -r "s/ //g" | grep -vP "^$" |
 		GREP_COLORS='mt=01;41' egrep --color=always "[K]*" | \
 		GREP_COLORS='mt=0;0' egrep --color=always "[-]" | \
 		GREP_COLORS='mt=01;42' egrep --color=always "[STQN]" | \
