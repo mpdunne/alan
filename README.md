@@ -8,34 +8,42 @@ https://github.com/mpdunne/Alan
 
 Usage
 =====
-Alan currently comes in three flavours: Alan Rickman,  Alan Davies, and Alan Bennett. Alan Rickman is designed for viewing nucleotide alignments, Alan Davies for amino acid alignments. Alan Bennett is designed to detect automatically the type of alignment being inspected. The default Alan is Alan Bennett.
 
-To run Alan in bash, simply type:
+Alan can be used to view both FASTA and CLUSTAL format alignments. The command ```alan``` will automatically detect the format of the input file, and the nature of the sequences contained in the file. To load the alan commands in bash, simply type:
 
 ```
 source alan.sh
 ```
 
-The Alan commands will now be available to use. To view an alignment, type, e.g.:
+To run alan in bash, simply type:
 
 ```
-alan alignment.fasta
-
-alanbennett alignment.fasta
-
-alanrickman nuc_alignment.fasta
-
-alandavies aa_alignment.fasta
-etc.
+alan your_alignment.fasta
 ```
 
-To load Alan every time you turn on your terminal, add
+Finally, to load Alan every time you turn on your terminal, add
 
 ```
 source path_to_alan/alan.sh
 ```
 
 to your ~/.bashrc.
+
+
+Variants
+========
+
+Alan will automatically decide what is the best way to view your alignment file. In the case that you know what format your alignment is, or you want to be more specific, you may want to use one of alan's subcommands:
+
+| Command       | Description           | Example                               |
+| ------------- |-----------------------| --------------------------------------|
+| alanbennett   | Fasta, automatic      | ```alanbennett alignment.fasta```     |
+| alandavies    | Fasta, protein        | ```alandavies prot_alignment.fasta``` |
+| alanrickman   | Fasta, nucleotide     | ```alanrickman nuc_alignment.fasta``` |
+| alanpartridge | Clustal, automatic    | ```alanpartridge alignment.fasta```   |
+| alanmenken    | Clustal, protein      | ```alanmenken prot_alignment.fasta``` |
+| alanshearer   | Clustal, nucleotide   | ```alanshearer nuc_alignment.fasta``` |
+
 
 Examples
 =====
