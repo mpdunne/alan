@@ -1,4 +1,4 @@
-# Alan — a simple command line alignment viewer
+# Alan — a simple in-terminal alignment viewer
 
 What does Alan do?
 ==========
