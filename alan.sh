@@ -1,5 +1,9 @@
 #!/bin/bash
 
+####################################
+# Fasta-style protein alignments   #
+####################################
+
 function alandavies {
 	paste <(grep ">" $1 | sed -r "s/$/\t###/g" | column -t -n -s $'\t' | sed -r "s/###//g") <(sed -r "s/^>(.*)$/£££>\1##K-STQNAILMFWVCRCEDGHYP###/g" $1 | tr '\n' ' ' | sed -r "s/£££/\n/g" | sed -r "s/ //g" | grep -vP "^$" |
 		GREP_COLORS='mt=01;41' egrep --color=always "[K]*" | \
@@ -15,6 +19,10 @@ function alandavies {
 		sed -r "s/.*###//g") | less -SR
 }
 
+####################################
+# Fasta-style nuc alignments       #
+####################################
+
 function alanrickman {
 	paste <(grep ">" $1 | sed -r "s/$/\t###/g" | column -t -n -s $'\t' | sed -r "s/###//g") <(sed -r "s/^>(.*)$/£££>\1##-ACGTNacgtn###/g" $1 | tr '\n' ' ' | sed -r "s/£££/\n/g" | sed -r "s/ //g" | grep -v "\*[A-Z]" | grep -vP "^$" |
 		GREP_COLORS='mt=0;0' egrep --color=always "[-]" | \
@@ -24,6 +32,10 @@ function alanrickman {
 		GREP_COLORS='mt=01;34' egrep --color=always "[Tt]" | \
 		sed -r "s/.*###//g") | less -SR
 }
+
+####################################
+# Fasta-style automatic            #
+####################################
 
 function alanbennett {
 	nt=`grep -v ">" $1 | tr '\n' ' ' | sed -r "s/[acgtnACGNT]/#/g" | sed -r "s/[ -]//g" | grep -o "#" | wc -l`
@@ -35,6 +47,10 @@ function alanbennett {
 	fi
 }
 
+####################################
+# Fully automatic                  #
+####################################
+
 function alan {
 	if [[ `grep -i "clustal format alignment" $1` == "" ]]; then
 		alanbennett $1
@@ -42,6 +58,30 @@ function alan {
 		alanpartridge $1
 	fi
 }
+
+####################################
+# Clustal-style protein alignments #
+####################################
+
+function alanshearer {
+	file=$1; tmp=`mktemp`
+        nf=`awk -vRS= -vFS="\n" '{if (NF > 1) {print NF-1}}' $file | grep -P "^[0-9]+$" | sort -nr | head -n1`; for i in `seq 1 $nf`; do s=`awk -vRS= -vFS="\n" -v a="$i" '{if (NF > 1) {print $a}}' $file | sed -r "s/ +/\t/g"`; id=`echo "$s" | cut -f1 | sort -u | head -n1`; echo ">$id"; echo "$s" | cut -f2; done > $tmp
+        alandavies $tmp; rm $tmp
+}
+
+####################################
+# Clustal-style nuc alignments     #
+####################################
+
+function alanmenken {
+	file=$1; tmp=`mktemp`
+        nf=`awk -vRS= -vFS="\n" '{if (NF > 1) {print NF-1}}' $file | grep -P "^[0-9]+$" | sort -nr | head -n1`; for i in `seq 1 $nf`; do s=`awk -vRS= -vFS="\n" -v a="$i" '{if (NF > 1) {print $a}}' $file | sed -r "s/ +/\t/g"`; id=`echo "$s" | cut -f1 | sort -u | head -n1`; echo ">$id"; echo "$s" | cut -f2; done > $tmp
+        alanrickman $tmp; rm $tmp
+}
+
+####################################
+# Clustal-style automatic          #
+####################################
 
 function alanpartridge {
 	file=$1; tmp=`mktemp`
