@@ -35,14 +35,14 @@ Variants
 
 Alan will automatically decide what is the best way to view your alignment file. In the case that you know what format your alignment is, or you want to be more specific, you may want to use one of alan's subcommands:
 
-| Command       | Description           | Example                               |
-| ------------- |-----------------------| --------------------------------------|
-| alanbennett   | Fasta, automatic      | ```alanbennett alignment.fasta```     |
-| alandavies    | Fasta, protein        | ```alandavies prot_alignment.fasta``` |
-| alanrickman   | Fasta, nucleotide     | ```alanrickman nuc_alignment.fasta``` |
-| alanpartridge | Clustal, automatic    | ```alanpartridge alignment.fasta```   |
-| alanmenken    | Clustal, protein      | ```alanmenken prot_alignment.fasta``` |
-| alanshearer   | Clustal, nucleotide   | ```alanshearer nuc_alignment.fasta``` |
+| Command Name   | Command         | Description           | Example                               |
+|----------------|-----------------|-----------------------| --------------------------------------|
+| Alan Bennett   | `alanbennett`   | Fasta, automatic      | ```alanbennett alignment.fasta```     |
+| Alan Davies    | `alandavies`    | Fasta, protein        | ```alandavies prot_alignment.fasta``` |
+| Alan Rickman   | `alanrickman`   | Fasta, nucleotide     | ```alanrickman nuc_alignment.fasta``` |
+| Alan Partridge | `alanpartridge` | Clustal, automatic    | ```alanpartridge alignment.fasta```   |
+| Alan Menken    | `alanmenken`    | Clustal, protein      | ```alanmenken prot_alignment.fasta``` |
+| Alan Shearer   | `alanshearer`   | Clustal, nucleotide   | ```alanshearer nuc_alignment.fasta``` |
 
 
 Examples
