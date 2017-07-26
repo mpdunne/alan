@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#http://misc.flogisoft.com/bash/tip_colors_and_formatting
+
 ####################################
 # Fasta-style protein alignments   #
 ####################################
@@ -8,7 +10,7 @@ function alandavies {
 	paste <(grep ">" $1 | sed -r "s/$/\t###/g" | column -t -n -s $'\t' | sed -r "s/###//g") <(sed -r "s/^>(.*)$/£££>\1##K-STQNAILMFWVCRCEDGHYP###/g" $1 | tr '\n' ' ' | sed -r "s/£££/\n/g" | sed -r "s/ //g" | grep -vP "^$" |
 		GREP_COLORS='mt=01;41' egrep --color=always "[K]*" | \
 		GREP_COLORS='mt=0;0' egrep --color=always "[-]" | \
-		GREP_COLORS='mt=01;90;42' egrep --color=always "[STQN]" | \
+		GREP_COLORS='mt=01;37;42' egrep --color=always "[STQN]" | \
 		GREP_COLORS='mt=01;44' egrep --color=always "[AILMFWVC]" | \
 		GREP_COLORS='mt=01;41' egrep --color=always "[R]" | \
 		GREP_COLORS='mt=01;105' egrep --color=always "[C]" | \
@@ -16,7 +18,7 @@ function alandavies {
 		GREP_COLORS='mt=01;90;103' egrep --color=always "[G]" | \
 		GREP_COLORS='mt=01;46' egrep --color=always "[HY]" | \
 		GREP_COLORS='mt=01;90;43' egrep --color=always "[P]" | \
-		sed -r "s/.*###//g") | less -SR
+		sed -r "s/.*###//g") | less -SR --shift 10
 }
 
 ####################################
@@ -30,7 +32,7 @@ function alanrickman {
 		GREP_COLORS='mt=01;32' egrep --color=always "[Cc]" | \
 		GREP_COLORS='mt=01;35' egrep --color=always "[Gg]" | \
 		GREP_COLORS='mt=01;34' egrep --color=always "[Tt]" | \
-		sed -r "s/.*###//g") | less -SR
+		sed -r "s/.*###//g") | less -SR --shift 10
 }
 
 ####################################
