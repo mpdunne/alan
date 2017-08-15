@@ -48,12 +48,10 @@ Alan will automatically decide what is the best way to view your alignment file.
 Examples
 =====
 
-Alan Davies:
+![alt text](http://empede.co.uk/imgrepos/Alan.gif "Alans Bennett and Rickman Respectively")
 
-![alt text](https://i.imgsafe.org/40fb47a159.jpg "Alan Davies, for amino acids")
 
-Alan Rickman:
 
-![alt text](https://i.imgsafe.org/40fb5c40f5.jpg "Alan Rickman, for nucleotide alignments")
+
 
 
