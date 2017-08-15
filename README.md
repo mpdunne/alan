@@ -48,7 +48,8 @@ Alan will automatically decide what is the best way to view your alignment file.
 Examples
 =====
 
-![Alt Text](http://empede.co.uk/imgrepos/Alan.gif "Alans Bennett and Rickman Respectively")
+![Alt Text](http://empede.co.uk/imgrepos/aa.png "Alan Davies")
+![Alt Text](http://empede.co.uk/imgrepos/cds.png "Alan Rickman")
 
 
 
