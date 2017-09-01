@@ -18,6 +18,7 @@ function alandavies {
 		GREP_COLORS='mt=01;90;103' egrep --color=always "[G]" | \
 		GREP_COLORS='mt=01;46' egrep --color=always "[HY]" | \
 		GREP_COLORS='mt=01;90;43' egrep --color=always "[P]" | \
+	#	GREP_COLORS='mt=48;5;97' egrep --color=always "[BUOX]" | \
 		sed -r "s/.*###//g") | less -SR --shift 10
 }
 
