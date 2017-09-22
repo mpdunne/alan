@@ -9,6 +9,8 @@ https://github.com/mpdunne/Alan
 Usage
 =====
 
+Alan is essentially a one-line bash code that turns the ```less``` reader into an alignment viewer. The full set of alan commands is about seven lines long.
+
 Alan can be used to view both FASTA and CLUSTAL format alignments. The command ```alan``` will automatically detect the format of the input file, and the nature of the sequences contained in the file. To load the alan commands in bash, simply type:
 
 ```
