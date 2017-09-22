@@ -31,7 +31,7 @@ function alanrickman {
 		GREP_COLORS='mt=0;0' egrep --color=always "[-]" | \
 		GREP_COLORS='mt=01;31' egrep --color=always "[Aa]" | \
 		GREP_COLORS='mt=01;32' egrep --color=always "[Cc]" | \
-		GREP_COLORS='mt=01;35' egrep --color=always "[Gg]" | \
+		GREP_COLORS='mt=01;33' egrep --color=always "[Gg]" | \
 		GREP_COLORS='mt=01;34' egrep --color=always "[Tt]" | \
 		sed -r "s/.*###//g") | less -SR --shift 10
 }
