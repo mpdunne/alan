@@ -24,7 +24,7 @@ To run alan in bash, simply type:
 alan your_alignment.fasta
 ```
 
-Finally, to load Alan every time you turn on your terminal, add
+Finally, to load alan every time you turn on your terminal, add
 
 ```
 source path_to_alan/alan.sh
