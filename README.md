@@ -3,9 +3,7 @@
 
 # Alan — a simple in-terminal alignment viewer
 
-What does Alan do?
-==========
-Alan is a simple, light command line alignment viewer, for viewing fasta alignments in a linux terminal.
+Alan is a simple, light command line alignment viewer, for viewing amino acid and DNA alignments in a linux terminal.
 
 https://github.com/mpdunne/Alan
 
