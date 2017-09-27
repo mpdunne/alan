@@ -1,3 +1,6 @@
+![alt text](http://empede.co.uk/imgrepos/Alan_head.png? "Alan header")
+
+
 # Alan — a simple in-terminal alignment viewer
 
 What does Alan do?
