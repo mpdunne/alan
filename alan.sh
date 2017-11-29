@@ -54,7 +54,7 @@ function alanbennett {
 ####################################
 
 function alan {
-	if [[ `grep -i "clustal format alignment" $1` == "" ]]; then
+	if [[ `head -n 1 $1 | up | cut -c1-7` != "CLUSTAL" ]]; then
 		alanbennett $1
 	else
 		alanpartridge $1
@@ -67,7 +67,7 @@ function alan {
 
 function alanshearer {
 	file=$1; tmp=`mktemp`
-        nf=`awk -vRS= -vFS="\n" '{if (NF > 1) {print NF-1}}' $file | grep -P "^[0-9]+$" | sort -nr | head -n1`; for i in `seq 1 $nf`; do s=`awk -vRS= -vFS="\n" -v a="$i" '{if (NF > 1) {print $a}}' $file | sed -r "s/ +/\t/g"`; id=`echo "$s" | cut -f1 | sort -u | head -n1`; echo ">$id"; echo "$s" | cut -f2; done > $tmp
+        nf=`awk -vRS="\n" '{if (NF > 1) {print NF-1}}' $file | grep -P "^[0-9]+$" | sort -nr | head -n1`; for i in `seq 1 $nf`; do s=`awk -vRS="" -vFS="\n" -v a="$i" '{if (NF > 1) {print $a}}' $file | sed -r "s/ +/\t/g"`; id=`echo "$s" | cut -f1 | sort -u | head -n1`; echo ">$id"; echo "$s" | cut -f2; done > $tmp
         alandavies $tmp; rm $tmp
 }
 
@@ -77,7 +77,7 @@ function alanshearer {
 
 function alanmenken {
 	file=$1; tmp=`mktemp`
-        nf=`awk -vRS= -vFS="\n" '{if (NF > 1) {print NF-1}}' $file | grep -P "^[0-9]+$" | sort -nr | head -n1`; for i in `seq 1 $nf`; do s=`awk -vRS= -vFS="\n" -v a="$i" '{if (NF > 1) {print $a}}' $file | sed -r "s/ +/\t/g"`; id=`echo "$s" | cut -f1 | sort -u | head -n1`; echo ">$id"; echo "$s" | cut -f2; done > $tmp
+        nf=`awk -vRS="\n" '{if (NF > 1) {print NF-1}}' $file | grep -P "^[0-9]+$" | sort -nr | head -n1`; for i in `seq 1 $nf`; do s=`awk -vRS="" -vFS="\n" -v a="$i" '{if (NF > 1) {print $a}}' $file | sed -r "s/ +/\t/g"`; id=`echo "$s" | cut -f1 | sort -u | head -n1`; echo ">$id"; echo "$s" | cut -f2; done > $tmp
         alanrickman $tmp; rm $tmp
 }
 
@@ -87,7 +87,7 @@ function alanmenken {
 
 function alanpartridge {
 	file=$1; tmp=`mktemp`
-	nf=`awk -vRS= -vFS="\n" '{if (NF > 1) {print NF-1}}' $file | grep -P "^[0-9]+$" | sort -nr | head -n1`; for i in `seq 1 $nf`; do s=`awk -vRS= -vFS="\n" -v a="$i" '{if (NF > 1) {print $a}}' $file | sed -r "s/ +/\t/g"`; id=`echo "$s" | cut -f1 | sort -u | head -n1`; echo ">$id"; echo "$s" | cut -f2; done > $tmp
+	nf=`awk -vRS="\n" '{if (NF > 1) {print NF-1}}' $file | grep -P "^[0-9]+$" | sort -nr | head -n1`; for i in `seq 1 $nf`; do s=`awk -vRS="" -vFS="\n" -v a="$i" '{if (NF > 1) {print $a}}' $file | sed -r "s/ +/\t/g"`; id=`echo "$s" | cut -f1 | sort -u | head -n1`; echo ">$id"; echo "$s" | cut -f2; done > $tmp
 	alanbennett $tmp; rm $tmp
 	
 }
