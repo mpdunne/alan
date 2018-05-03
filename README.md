@@ -19,6 +19,9 @@ The ```alan``` command should be ready to use straight out of the box - no insta
 
 Before using Alan, you may wish to add the directory containing the ```alan``` executable to your ```$PATH``` by editing the ```.bashrc```file in your home directory (e.g. add the line ```PATH=$PATH:/path/to/alan_dir```). If you've done this, Alan can be run by simply typing ```alan your_alignment.fa```. Alternatively, explicitly reference the location of the alan executable, for example by typing ```/path/to/alan your_alignment.fa```.
 
+File types and options
+======================
+
 Alan works on FASTA and Clustal format alignments. It's a very basic alignment reader, and any other alignment formats will confuse it. If this is an issue, convert files before viewing. The choice of file format (FASTA or Clustal) is detected automatically. Alan has been principally tested with FASTA files -- raise a support request if you have any trouble with Clustal files.
 
 If no information on molecule type is supplied, Alan will try to detect whether an alignment is composed of protein or nucleotide sequences, and will display them accordingly. To override this, use the options ```-n``` for nucleotides, or ```-p``` for protein sequences.
