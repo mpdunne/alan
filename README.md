@@ -40,7 +40,7 @@ Examples
 The Alan museum
 ===============
 
-The original Alan command was a one-line modification of the ````less ``` command. For its simplicity and portability, you may wish to use the orignal alan on your system, or simply admire its splendour. This and some derived commands are contained in the alan_museum directory, and they are loaded as functions, so type ```source alan_museum/alan_orig.sh``` to load them, and then type the individual commands to use them. The original Alan commands are:
+The original Alan command was a one-line modification of the ```less ``` command. For its simplicity and portability, you may wish to use the orignal alan on your system, or simply admire its splendour. This and some derived commands are contained in the alan_museum directory, and they are loaded as functions, so type ```source alan_museum/alan_orig.sh``` to load them, and then type the individual commands to use them. The original Alan commands are:
 
 
 | Command Name   | Command         | Description           | Example                               |
