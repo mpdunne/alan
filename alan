@@ -1,0 +1,127 @@
+#!/bin/bash
+
+###############################
+# Alan version 2.0
+# Released 2018-05-30
+#
+# Copyright Michael P. Dunne
+# Contact: mpdunne@live.com
+###############################
+
+#http://misc.flogisoft.com/bash/tip_colors_and_formatting
+
+NUCS=0; PROT=0; SHIFT=10
+
+# Parse in the command line options!
+
+POSITIONAL=()
+while [[ $# -gt 0 ]]; do
+key="$1"
+case $key in
+    -n|--nucs)
+    NUCS=1
+    shift # past argument
+    ;;
+    -p|--protein)
+    PROT=1
+    shift # past argument
+    ;;
+    -s|--shift)
+    SHIFT="$2"
+    shift # past argument
+    shift # past value
+    ;;
+    *)    # unknown option
+    POSITIONAL+=("$1") # save it in an array for later
+    shift # past argument
+    ;;
+esac
+done
+set -- "${POSITIONAL[@]}" # restore positional parameters
+
+# Sanity checks on the command line options!
+
+# Check only one mol type is being picked
+if [[ $[$NUCS + $PROT] -gt 1 ]]; then
+	echo "Error: Options -p and -n can't be used simultaneously :)."
+	echo "       Leave blank for automatic selection!"
+	exit; fi
+
+# Check the shift value is a positive number
+if ! expr "$SHIFT" : '[0-9]\+$' >/dev/null; then
+	echo "Error: Value for -s must be a positive integer! :)"
+	exit; fi
+if [[ "$SHIFT" -le 0 ]]; then
+	echo "Error: Value for -s must be a positive integer!"
+	exit; fi
+
+INFILE=$1
+
+# Check the input file is specified and is present
+if [[ ! -f $INFILE || "$INFILE" == "" ]]; then
+	echo "Error: Please specify a valid input file! :)"
+	exit; fi
+
+# Choose between clustal and fasta...
+CLUSTAL=0
+if [[ `head -n 1 $1 | awk '{print toupper($0)}' | cut -c1-7` == "CLUSTAL" ]]; then
+	CLUSTAL=1; fi
+
+# Define the core functions.
+
+function alandavies {
+	paste <(grep ">" $1 | sed -r "s/$/\t###/g" | column -t -s $'\t' | sed -r "s/###//g") <(sed -r "s/^>(.*)$/£££>\1##K-STQNAILMFWVCRCEDGHYP###/g" $1 | tr '\n' ' ' | sed -r "s/£££/\n/g" | sed -r "s/ //g" | grep -v "^$" |
+		GREP_COLORS='mt=01;41' egrep --color=always "[K]*" | \
+		GREP_COLORS='mt=0;0' egrep --color=always "[-]" | \
+		GREP_COLORS='mt=01;37;42' egrep --color=always "[STQN]" | \
+		GREP_COLORS='mt=01;44' egrep --color=always "[AILMFWVC]" | \
+		GREP_COLORS='mt=01;41' egrep --color=always "[R]" | \
+		GREP_COLORS='mt=01;105' egrep --color=always "[C]" | \
+		GREP_COLORS='mt=01;45' egrep --color=always "[ED]" | \
+		GREP_COLORS='mt=01;90;103' egrep --color=always "[G]" | \
+		GREP_COLORS='mt=01;46' egrep --color=always "[HY]" | \
+		GREP_COLORS='mt=01;90;43' egrep --color=always "[P]" | \
+		sed -r "s/.*###//g") | less -SR --shift $SHIFT
+}
+
+function alanrickman {
+	paste <(grep ">" $1 | sed -r "s/$/\t###/g" | column -t -s $'\t' | sed -r "s/###//g") <(sed -r "s/^>(.*)$/£££>\1##-ACGTNacgtn###/g" $1 | tr '\n' ' ' | sed -r "s/£££/\n/g" | sed -r "s/ //g" | grep -v "\*[A-Z]" | grep -v "^$" |
+		GREP_COLORS='mt=0;0' egrep --color=always "[-]" | \
+		GREP_COLORS='mt=01;31' egrep --color=always "[Aa]" | \
+		GREP_COLORS='mt=01;32' egrep --color=always "[Cc]" | \
+		GREP_COLORS='mt=01;33' egrep --color=always "[Gg]" | \
+		GREP_COLORS='mt=01;34' egrep --color=always "[Tt]" | \
+		sed -r "s/.*###//g") | less -SR --shift $SHIFT
+}
+
+function go_fasta {
+	# If protein or nuc is not specified, choose automatically.
+	if [[ $[$NUCS + $PROT] -eq 0 ]]; then
+		nt=`grep -v ">" $1 | tr '\n' ' ' | sed -r "s/[acgtnACGNT]/#/g" | sed -r "s/[ -]//g" | grep -o "#" | wc -l`
+		aa=`grep -v ">" $1 | tr '\n' ' ' | sed -r "s/[KSTQNAILMFWVCRCEDGHYP]/#/g" | sed -r "s/[ -]//g" | grep -o "#" | wc -l`
+		if [[ "$nt" -ge "$aa" ]]; then NUCS=1; else PROT=1; fi
+	fi
+	# Run alan.
+	if [[ "$NUCS" -eq "1" ]]; then
+		alanrickman $1;
+	else
+		alandavies $1;
+	fi
+}
+
+function go_clustal {
+	file=$1; tmp=`mktemp`
+	nf=`sed 1d $file | sed -r "s/ +/\t/g" | cut -f1 | paste -sd "@" | sed -r "s/^@+//g" | sed -r "s/@@+.*//g" | sed -r "s/@/\n/g" | wc -l`
+	for i in `seq 1 $nf`; do
+		s=`awk -vRS="" -vFS="\n" -v a="$i" '{if (NF > 1) {print $a}}' $file | sed -r "s/ +/\t/g"`
+		id=`echo "$s" | cut -f1 | sort -u | head -n1`
+		echo ">$id"; echo "$s" | cut -f2
+	done > $tmp
+	go_fasta $tmp; rm $tmp
+}
+
+if [[ "$CLUSTAL" -eq 1 ]]; then
+	go_clustal $1
+else
+	go_fasta $1
+fi
