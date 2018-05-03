@@ -28,7 +28,7 @@ If no information on molecule type is supplied, Alan will try to detect whether 
 
 To navigate the alignment, use the keyboard arrow keys. The amount by which an alignment is shifted using the arrow keys can be set using the ```-s``` or ```--shift``` options, followed by a numeric value. The default is 10.
 
-Alan uses ```less``` as its main viewer, and so any other in-viewer commands contained in less will also work in Alan. 
+Alan uses ```less``` as its main viewer, and so any other in-viewer commands contained in less will also work in Alan. This includes searching (use ```/```), and more: see https://en.wikipedia.org/wiki/Less_(Unix) for a few.
 
 Examples
 =====
