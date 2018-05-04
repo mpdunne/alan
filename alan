@@ -10,7 +10,7 @@
 
 #http://misc.flogisoft.com/bash/tip_colors_and_formatting
 
-NUCS=0; PROT=0; SHIFT=10
+NUCS=0; PROT=0; SHIFT=10;
 
 # Parse in the command line options!
 
@@ -31,6 +31,17 @@ case $key in
     shift # past argument
     shift # past value
     ;;
+    --coln)
+    COLN="$2"
+    shift # past argument
+    shift # past value
+    ;;
+    --colp)
+    COLP="$2"
+    shift # past argument
+    shift # past value
+    ;;
+
     *)    # unknown option
     POSITIONAL+=("$1") # save it in an array for later
     shift # past argument
@@ -70,28 +81,29 @@ if [[ `head -n 1 $1 | awk '{print toupper($0)}' | cut -c1-7` == "CLUSTAL" ]]; th
 # Define the core functions.
 
 function alandavies {
-	paste <(grep ">" $1 | sed -r "s/$/\t###/g" | column -t -s $'\t' | sed -r "s/###//g") <(sed -r "s/^>(.*)$/£££>\1##K-STQNAILMFWVCRCEDGHYP###/g" $1 | tr '\n' ' ' | sed -r "s/£££/\n/g" | sed -r "s/ //g" | grep -v "^$" |
-		GREP_COLORS='mt=01;41' egrep --color=always "[K]*" | \
-		GREP_COLORS='mt=0;0' egrep --color=always "[-]" | \
-		GREP_COLORS='mt=01;37;42' egrep --color=always "[STQN]" | \
-		GREP_COLORS='mt=01;44' egrep --color=always "[AILMFWVC]" | \
-		GREP_COLORS='mt=01;41' egrep --color=always "[R]" | \
-		GREP_COLORS='mt=01;105' egrep --color=always "[C]" | \
-		GREP_COLORS='mt=01;45' egrep --color=always "[ED]" | \
-		GREP_COLORS='mt=01;90;103' egrep --color=always "[G]" | \
-		GREP_COLORS='mt=01;46' egrep --color=always "[HY]" | \
-		GREP_COLORS='mt=01;90;43' egrep --color=always "[P]" | \
-		sed -r "s/.*###//g") | less -SR --shift $SHIFT
+	labels=`grep ">" $1 | sed -r "s/$/\t###/g" | column -t -s $'\t' | sed -r "s/###//g"`
+	seqs=`sed -r "s/^>(.*)$/£££>\1##K-STQNAILMFWVCRCEDGHYP###/g" $1 | tr '\n' ' ' | sed -r "s/£££/\n/g" | sed -r "s/ //g" | grep -v "^$" |
+		sed -r "s/([KkRr])/\\\\\\033\[01;41@\1\\\\\\033\[0;0@/g" |
+		sed -r "s/([SsTtQqNn])/\\\\\\033\[01;37;42@\1\\\\\\033\[0;0@/g" |
+		sed -r "s/([AaIiLlMmFfWwVvCc])/\\\\\\033\[01;44@\1\\\\\\033\[0;0@/g" |
+		sed -r "s/([Cc])/\\\\\\033\[01;105@\1\\\\\\033\[0;0@/g" |
+		sed -r "s/([EeDd])/\\\\\\033\[01;45@\1\\\\\\033\[0;0@/g" |
+		sed -r "s/([Gg])/\\\\\\033\[01;90;103@\1\\\\\\033\[0;0@/g" |
+		sed -r "s/([HhYy])/\\\\\\033\[01;46@\1\\\\\\033\[0;0@/g" |
+		sed -r "s/([Pp])/\\\\\\033\[01;90;43@\1\\\\\\033\[0;0@/g" |
+		sed -r "s/.*###//g" | sed -r "s/@/m/g"`
+	paste <(printf -- "$labels") <(printf -- "$seqs") | less -SR --shift $SHIFT
 }
 
 function alanrickman {
-	paste <(grep ">" $1 | sed -r "s/$/\t###/g" | column -t -s $'\t' | sed -r "s/###//g") <(sed -r "s/^>(.*)$/£££>\1##-ACGTNacgtn###/g" $1 | tr '\n' ' ' | sed -r "s/£££/\n/g" | sed -r "s/ //g" | grep -v "\*[A-Z]" | grep -v "^$" |
-		GREP_COLORS='mt=0;0' egrep --color=always "[-]" | \
-		GREP_COLORS='mt=01;31' egrep --color=always "[Aa]" | \
-		GREP_COLORS='mt=01;32' egrep --color=always "[Cc]" | \
-		GREP_COLORS='mt=01;33' egrep --color=always "[Gg]" | \
-		GREP_COLORS='mt=01;34' egrep --color=always "[Tt]" | \
-		sed -r "s/.*###//g") | less -SR --shift $SHIFT
+	labels=`grep ">" $1 | sed -r "s/$/\t###/g" | column -t -s $'\t' | sed -r "s/###//g"`
+	seqs=`sed -r "s/^>(.*)$/£££>\1##-ACGTNacgtn###/g" $1 | tr '\n' ' ' | sed -r "s/£££/\n/g" | sed -r "s/ //g" | grep -v "\*[A-Z]" | grep -v "^$" |
+		sed -r "s/([Aa])/\\\\\\033\[01;31m\1\\\\\\033\[0;0m/g" |
+		sed -r "s/([Gg])/\\\\\\033\[01;33m\1\\\\\\033\[0;0m/g" |
+		sed -r "s/([Cc])/\\\\\\033\[01;32m\1\\\\\\033\[0;0m/g" |
+		sed -r "s/([Tt])/\\\\\\033\[01;34m\1\\\\\\033\[0;0m/g" |
+		sed -r "s/.*###//g"`
+	paste <(printf -- "$labels") <(printf -- "$seqs") | less -SR --shift $SHIFT
 }
 
 function go_fasta {
