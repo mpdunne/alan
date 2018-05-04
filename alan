@@ -98,11 +98,11 @@ function alandavies {
 function alanrickman {
 	labels=`grep ">" $1 | sed -r "s/$/\t###/g" | column -t -s $'\t' | sed -r "s/###//g"`
 	seqs=`sed -r "s/^>(.*)$/£££>\1##-ACGTNacgtn###/g" $1 | tr '\n' ' ' | sed -r "s/£££/\n/g" | sed -r "s/ //g" | grep -v "\*[A-Z]" | grep -v "^$" |
-		sed -r "s/([Aa])/\\\\\\033\[01;31m\1\\\\\\033\[0;0m/g" |
-		sed -r "s/([Gg])/\\\\\\033\[01;33m\1\\\\\\033\[0;0m/g" |
-		sed -r "s/([Cc])/\\\\\\033\[01;32m\1\\\\\\033\[0;0m/g" |
-		sed -r "s/([Tt])/\\\\\\033\[01;34m\1\\\\\\033\[0;0m/g" |
-		sed -r "s/.*###//g"`
+		sed -r "s/([Aa])/\\\\\\033\[01;31@\1\\\\\\033\[0;0@/g" |
+		sed -r "s/([Gg])/\\\\\\033\[01;33@\1\\\\\\033\[0;0@/g" |
+		sed -r "s/([Cc])/\\\\\\033\[01;32@\1\\\\\\033\[0;0@/g" |
+		sed -r "s/([Tt])/\\\\\\033\[01;34@\1\\\\\\033\[0;0@/g" |
+		sed -r "s/.*###//g" | sed -r "s/@/m/g"`
 	paste <(printf -- "$labels") <(printf -- "$seqs") | less -SR --shift $SHIFT
 }
 
