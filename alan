@@ -33,11 +33,15 @@ case $key in
     ;;
     --coln)
     COLN="$2"
+    if [[ "$COLN" == "" ]]; then
+	echo "Error: --coln option requires a value :)"; exit; fi
     shift # past argument
     shift # past value
     ;;
     --colp)
     COLP="$2"
+    if [[ "$COLP" == "" ]]; then
+	echo "Error: --colp option requires a value :)"; exit; fi
     shift # past argument
     shift # past value
     ;;
@@ -80,31 +84,30 @@ if [[ `head -n 1 $1 | awk '{print toupper($0)}' | cut -c1-7` == "CLUSTAL" ]]; th
 
 # Define the core functions.
 
-function alandavies {
-	labels=`grep ">" $1 | sed -r "s/$/\t###/g" | column -t -s $'\t' | sed -r "s/###//g"`
-	seqs=`sed -r "s/^>(.*)$/£££>\1##K-STQNAILMFWVCRCEDGHYP###/g" $1 | tr '\n' ' ' | sed -r "s/£££/\n/g" | sed -r "s/ //g" | grep -v "^$" |
-		sed -r "s/([KkRr])/\\\\\\033\[01;41@\1\\\\\\033\[0;0@/g" |
-		sed -r "s/([SsTtQqNn])/\\\\\\033\[01;37;42@\1\\\\\\033\[0;0@/g" |
-		sed -r "s/([AaIiLlMmFfWwVvCc])/\\\\\\033\[01;44@\1\\\\\\033\[0;0@/g" |
-		sed -r "s/([Cc])/\\\\\\033\[01;105@\1\\\\\\033\[0;0@/g" |
-		sed -r "s/([EeDd])/\\\\\\033\[01;45@\1\\\\\\033\[0;0@/g" |
-		sed -r "s/([Gg])/\\\\\\033\[01;90;103@\1\\\\\\033\[0;0@/g" |
-		sed -r "s/([HhYy])/\\\\\\033\[01;46@\1\\\\\\033\[0;0@/g" |
-		sed -r "s/([Pp])/\\\\\\033\[01;90;43@\1\\\\\\033\[0;0@/g" |
-		sed -r "s/.*###//g" | sed -r "s/@/m/g"`
-	paste <(printf -- "$labels") <(printf -- "$seqs") | less -SR --shift $SHIFT
+function go {
+	file="$1"; cols="$2"; gromit="$3"; colfile=$4; colfiled=$5
+	# Firstly, check if any custom colour schemes are specified or
+	# if there is a custom colour file in the alan directory.
+	if [[ ! "$colfile" == "" ]]; then
+		cols=`cat $colfile`
+	elif [[ -f $colfiled ]]; then
+		cols=`cat $colfiled`
+	fi
+	# Do the magic
+	labels=`grep ">" $file | sed -r "s/$/\t###/g" | column -t -s $'\t' | sed -r "s/###//g"`
+	seqs=`sed -r "s/^>(.*)$/£££>\1##$gromit###/g" $file | tr '\n' ' ' | sed -r "s/£££/\n/g" | sed -r "s/ //g" | grep -v "^$"`
+	while read line; do
+		patt=`echo "$line" | cut -f1`
+		colour=`echo "$line" | cut -f2`
+		seqs_t=`printf "$seqs" | sed -r "s/([$patt])/£033=$colour@\1£033=0;0@/g"`
+		seqs="$seqs_t"
+	done < <(printf -- "$cols\n")
+	seqs_t=`printf "$seqs" | sed -r "s/.*###//g" | sed -r "s/@/m/g" | sed -r "s/=/\[/g" | sed -r "s/£/\\\\\\/g"`
+	paste <(printf -- "$labels") <(printf -- "$seqs_t") | less -SR --shift $SHIFT
 }
 
-function alanrickman {
-	labels=`grep ">" $1 | sed -r "s/$/\t###/g" | column -t -s $'\t' | sed -r "s/###//g"`
-	seqs=`sed -r "s/^>(.*)$/£££>\1##-ACGTNacgtn###/g" $1 | tr '\n' ' ' | sed -r "s/£££/\n/g" | sed -r "s/ //g" | grep -v "\*[A-Z]" | grep -v "^$" |
-		sed -r "s/([Aa])/\\\\\\033\[01;31@\1\\\\\\033\[0;0@/g" |
-		sed -r "s/([Gg])/\\\\\\033\[01;33@\1\\\\\\033\[0;0@/g" |
-		sed -r "s/([Cc])/\\\\\\033\[01;32@\1\\\\\\033\[0;0@/g" |
-		sed -r "s/([Tt])/\\\\\\033\[01;34@\1\\\\\\033\[0;0@/g" |
-		sed -r "s/.*###//g" | sed -r "s/@/m/g"`
-	paste <(printf -- "$labels") <(printf -- "$seqs") | less -SR --shift $SHIFT
-}
+default_n="Aa\t01;31\nGg\t01;33\nCc\t01;32\nTt\t01;34"
+default_p="KkRr\t01;41\nSsTtQqNn\t01;37;42\nAaIiLlMmFfWwVvCc\t01;44\nCc\t01;105\nEeDd\t01;45\nGg\t01;90;103\nHhYy\t01;46\nPp\t01;90;43"
 
 function go_fasta {
 	# If protein or nuc is not specified, choose automatically.
@@ -114,10 +117,11 @@ function go_fasta {
 		if [[ "$nt" -ge "$aa" ]]; then NUCS=1; else PROT=1; fi
 	fi
 	# Run alan.
+	DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 	if [[ "$NUCS" -eq "1" ]]; then
-		alanrickman $1;
+		go "$1" "$default_n" "-ACGTNacgtn" "$COLN" "$DIR/coln.csv"
 	else
-		alandavies $1;
+		go "$1" "$default_p" "K-STQNAILMFWVCRCEDGHYP" "$COLP" "$DIR/colp.csv"
 	fi
 }
 

@@ -30,6 +30,40 @@ To navigate the alignment, use the keyboard arrow keys. The amount by which an a
 
 Alan uses ```less``` as its main viewer, and so any other in-viewer commands contained in less will also work in Alan. This includes searching (use ```/```), and more: see https://en.wikipedia.org/wiki/Less_(Unix) for a few.
 
+Colours
+=======
+By default, Alan uses the clustal colour scheme as described [here](http://www.jalview.org/help/html/colourSchemes/clustal.html). The formatting is not context-dependent, and so always displays one colour per character. The formatting is designed to work on a black-screen terminal.
+
+You can update the colour scheme used by Alan in two ways. Alan colour schemes are defined by colour files. The default one for protein alignments looks like this:
+
+```
+-                  0;0
+KkRr               01;41
+SsTtQqNn           01;37;42
+AaIiLlMmFfWwVvCc   01;44
+Cc                 01;105
+EeDd               01;45
+Gg                 01;90;103
+HhYy               01;46
+Pp                 01;90;43
+```
+
+The default one for nucleotide alignments looks like this:
+
+```
+-Nn     0;0
+Aa      01;31
+Gg      01;33
+Cc      01;32
+Tt      01;34
+```
+
+These are tab-delimited text files, and are embedded in the alan script itself. The first column defines the symbols to be coloured, the second defines the colouring as defined [here](http://misc.flogisoft.com/bash/tip_colors_and_formatting). There can be no blank lines, and any instance of "```-```" must be at the start of a line.
+
+To include a custom colour file, include a ```colp.csv``` or ```coln.csv``` file (for protein and nucleotides respectively) in the same directory as the ```alan``` file, the contents of which should be in the same format as the above. Alternatively, if you wish to use multiple colour schemes for different purposes, you may wish to explicitly refer to a colour scheme file using the ```--colp``` or ```--coln``` options. For example:
+
+```alan my_alignment.fa --colp my_colours.csv```. 
+
 Examples
 =====
 
