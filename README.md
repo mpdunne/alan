@@ -7,7 +7,7 @@ Alan is a simple, light command line alignment viewer, for viewing amino acid an
 
 It can be used for viewing FASTA or Clustal format alignment files, and relies on just a few standard unix packages.
 
-Current Alan version (2.0.0): https://github.com/mpdunne/Alan
+Current Alan version (2.1.0): https://github.com/mpdunne/Alan
 
 
 Usage
