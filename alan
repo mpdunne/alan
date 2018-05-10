@@ -95,13 +95,13 @@ function go {
 	fi
 	# Do the magic
 	labels=`grep ">" $file | sed -r "s/$/\t###/g" | column -t -s $'\t' | sed -r "s/###//g"`
-	seqs=`sed -r "s/^>(.*)$/£££>\1##$gromit###/g" $file | tr '\n' ' ' | sed -r "s/£££/\n/g" | sed -r "s/ //g" | grep -v "^$"`
+	sedstring=""
 	while read line; do
-		patt=`echo "$line" | cut -f1`
-		colour=`echo "$line" | cut -f2`
-		seqs_t=`printf "$seqs" | sed -r "s/([$patt])/£033=$colour@\1£033=0;0@/g"`
-		seqs="$seqs_t"
+		patt=`echo "$line" | cut -f1`; colour=`echo "$line" | cut -f2`
+		sedstring="$sedstring; s/([$patt])/£033=$colour@\\1£033=0;0@/g"
 	done < <(printf -- "$cols\n")
+	sedstring=`echo "$sedstring" | sed -r "s/^[ \t;]+//g"`
+	seqs=`sed -r "s/^>(.*)$/£££>\1##$gromit###/g" $file | tr '\n' ' ' | sed -r "s/£££/\n/g" | sed -r "s/ //g" | grep -v "^$" | sed -r "$sedstring"`
 	seqs_t=`printf "$seqs" | sed -r "s/.*###//g" | sed -r "s/@/m/g" | sed -r "s/=/\[/g" | sed -r "s/£/\\\\\\/g"`
 	paste <(printf -- "$labels") <(printf -- "$seqs_t") | less -SR --shift $SHIFT
 }
