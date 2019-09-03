@@ -19,6 +19,8 @@ The ```alan``` command should be ready to use straight out of the box - no insta
 
 Before using Alan, you may wish to add the directory containing the ```alan``` executable to your ```$PATH``` by editing the ```.bashrc```file in your home directory (e.g. add the line ```PATH=$PATH:/path/to/alan_dir```). If you've done this, Alan can be run by simply typing ```alan your_alignment.fa```. Alternatively, explicitly reference the location of the alan executable, for example by typing ```/path/to/alan your_alignment.fa```.
 
+Alan does not work well on large alignments.
+
 File types and options
 ======================
 
@@ -74,7 +76,7 @@ Examples
 The Alan museum
 ===============
 
-The original Alan command was a one-line modification of the ```less ``` command. For its simplicity and portability, you may wish to use the orignal alan on your system, or simply admire its splendour. This and some derived commands are contained in the alan_museum directory, and they are loaded as functions, so type ```source alan_museum/alan_orig.sh``` to load them, and then type the individual commands to use them. The original Alan commands are:
+The original Alan command was a one-line modification of the ```less ``` command. For its simplicity and portability, you may wish to use the orignal alan on your system. This and some derived commands are contained in the alan_museum directory, and they are loaded as functions, so type ```source alan_museum/alan_orig.sh``` to load them, and then type the individual commands to use them. The original Alan commands are:
 
 
 | Command Name   | Command         | Description           | Example                               |
