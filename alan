@@ -70,12 +70,17 @@ if [[ "$SHIFT" -le 0 ]]; then
 	echo "Error: Value for -s must be a positive integer!"
 	exit; fi
 
-INFILE=$1
+# save filename as $INFILE or substitute for stdin if not present
+INFILE=${1:-/dev/stdin}
 
-# Check the input file is specified and is present
+# Check the input file is specified and present or stdin is open
 if [[ ! -f $INFILE || "$INFILE" == "" ]]; then
-	echo "Error: Please specify a valid input file! :)"
-	exit; fi
+	if [[ ! -t 0 ]]; then
+		echo "Read from stdin"
+	else
+		echo "Error: Please specify a valid input file! :)"
+		exit; fi
+	fi
 
 # Choose between clustal and fasta...
 CLUSTAL=0
@@ -137,7 +142,7 @@ function go_clustal {
 }
 
 if [[ "$CLUSTAL" -eq 1 ]]; then
-	go_clustal $1
+	go_clustal "$INFILE"
 else
-	go_fasta $1
+	go_fasta "$INFILE"
 fi
