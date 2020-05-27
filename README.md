@@ -15,11 +15,13 @@ Usage
 
 Alan is essentially a modified version of the ubiquitous ```less``` text reader. It uses a number of very common unix tools (```awk```, ```sed```, ```grep``` among others).
 
-The ```alan``` command should be ready to use straight out of the box - no installation is required.
+The ```alan``` command should be ready to use straight out of the box - no installation is required. Just type:
 
-Before using Alan, you may wish to add the directory containing the ```alan``` executable to your ```$PATH``` by editing the ```.bashrc```file in your home directory (e.g. add the line ```PATH=$PATH:/path/to/alan_dir```). If you've done this, Alan can be run by simply typing ```alan your_alignment.fa```. Alternatively, explicitly reference the location of the alan executable, for example by typing ```/path/to/alan your_alignment.fa```.
+```/path/to/alan your_alignment.fa```
 
-Alan does not work well on large alignments.
+To make things even easier, you may wish to add the directory containing the ```alan``` executable to your ```$PATH``` by editing the ```.bashrc```file in your home directory (e.g. add the line ```PATH=$PATH:/path/to/alan_dir```). Alternatively you can specify a shortcut in your ```.bashrc``` or ```bash_aliases``` file by adding the line ```alias alan="/path/to/alan"```. If you've done either of these, Alan can be run by simply typing ```alan your_alignment.fa```.
+
+Alan sometimes struggles with larger alignments.
 
 File types and options
 ======================
