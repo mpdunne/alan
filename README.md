@@ -62,7 +62,7 @@ Cc      01;32
 Tt      01;34
 ```
 
-These are tab-delimited text files, and are embedded in the alan script itself. The first column defines the symbols to be coloured, the second defines the colouring as defined [here](http://misc.flogisoft.com/bash/tip_colors_and_formatting). There can be no blank lines, and any instance of "```-```" must be at the start of a line.
+These are tab-delimited text files, and are embedded in the alan script itself. The first column defines the symbols to be coloured, the second defines the formatting and colouring using the codes from [here](http://misc.flogisoft.com/bash/tip_colors_and_formatting). Different formatting instructions are separated by ```;```, so that for example ```01;90;103``` means ```01``` (bold) and ```90``` (dark grey text) and ```103``` (light yellow background). Finally, the colour file must not contain blank lines, and any instance of "```-```" must be at the start of a line.
 
 To include a custom colour file, include a ```colp.csv``` or ```coln.csv``` file (for protein and nucleotides respectively) in the same directory as the ```alan``` file, the contents of which should be in the same format as the above. Alternatively, if you wish to use multiple colour schemes for different purposes, you may wish to explicitly refer to a colour scheme file using the ```--colp``` or ```--coln``` options. For example:
 
