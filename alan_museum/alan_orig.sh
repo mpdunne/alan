@@ -22,6 +22,29 @@ function alandavies {
 }
 
 ####################################
+# Piped FASTA protein alignments   #
+####################################
+
+function alanismorissette {
+	input="$(</dev/stdin)"
+	labels=$(echo "$input" | grep ">" | sed -r "s/$/\t###/g" | column -t -s $'\t' | sed -r "s/###//g")
+	seqs=$(echo "$input" | sed -r "s/^>(.*)$/£££>\1##K-STQNAILMFWVCRCEDGHYP###/g" | \
+			tr '\n' ' ' | sed -r "s/£££/\n/g" | sed -r "s/ //g" | grep -v "^$" | \
+			GREP_COLORS='mt=01;41' egrep --color=always "[K]*" | \
+			GREP_COLORS='mt=0;0' egrep --color=always "[-]" | \
+			GREP_COLORS='mt=01;37;42' egrep --color=always "[STQN]" | \
+			GREP_COLORS='mt=01;44' egrep --color=always "[AILMFWVC]" | \
+			GREP_COLORS='mt=01;41' egrep --color=always "[R]" | \
+			GREP_COLORS='mt=01;105' egrep --color=always "[C]" | \
+			GREP_COLORS='mt=01;45' egrep --color=always "[ED]" | \
+			GREP_COLORS='mt=01;90;103' egrep --color=always "[G]" | \
+			GREP_COLORS='mt=01;46' egrep --color=always "[HY]" | \
+			GREP_COLORS='mt=01;90;43' egrep --color=always "[P]" | \
+			sed -r "s/.*###//g")
+	paste <(echo "$labels") <(echo "$seqs") | less -SR --shift 10
+}
+
+####################################
 # Fasta-style nuc alignments       #
 ####################################
 
