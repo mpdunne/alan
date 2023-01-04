@@ -70,7 +70,14 @@ if [[ "$SHIFT" -le 0 ]]; then
 	echo "Error: Value for -s must be a positive integer!"
 	exit; fi
 
-INFILE=$1
+# If there are no arguments left, look for input from pipe
+TMPDIR="$(mktemp -d)"
+if (( $# == 0 )) ; then
+    INFILE="$TMPDIR/input.fa"
+    echo "$(</dev/stdin)" > $INFILE
+else
+    INFILE=$1
+fi
 
 # Check the input file is specified and is present
 if [[ ! -f $INFILE || "$INFILE" == "" ]]; then
@@ -79,7 +86,7 @@ if [[ ! -f $INFILE || "$INFILE" == "" ]]; then
 
 # Choose between clustal and fasta...
 CLUSTAL=0
-if [[ `head -n 1 $1 | awk '{print toupper($0)}' | cut -c1-7` == "CLUSTAL" ]]; then
+if [[ `head -n 1 $INFILE | awk '{print toupper($0)}' | cut -c1-7` == "CLUSTAL" ]]; then
 	CLUSTAL=1; fi
 
 # Define the core functions.
@@ -137,7 +144,10 @@ function go_clustal {
 }
 
 if [[ "$CLUSTAL" -eq 1 ]]; then
-	go_clustal $1
+	go_clustal $INFILE
 else
-	go_fasta $1
+	go_fasta $INFILE
 fi
+
+# Clean up any temp files
+trap 'rm -rf -- "$TMPDIR"' EXIT
