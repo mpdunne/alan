@@ -19,7 +19,11 @@ The ```alan``` command should be ready to use straight out of the box - no insta
 
 ```/path/to/alan your_alignment.fa```
 
-To make things even easier, you may wish to add the directory containing the ```alan``` executable to your ```$PATH``` by editing the ```.bashrc```file in your home directory (e.g. add the line ```PATH=$PATH:/path/to/alan_dir```). Alternatively you can specify a shortcut in your ```.bashrc``` or ```bash_aliases``` file by adding the line ```alias alan="/path/to/alan"```. If you've done either of these, Alan can be run by simply typing ```alan your_alignment.fa```.
+Where ```/path/to/alan``` is wherever you've saved the `alan` file in this repo.
+
+To make things even easier, you may wish to add the directory containing the ```alan``` executable to your ```$PATH``` by editing the ```.bashrc```file in your home directory (e.g. add the line ```PATH=$PATH:/path/to/alan_dir```). Alternatively you can specify a shortcut in your ```.bashrc``` (or ```.zshrc```) or ```bash_aliases``` file by adding the line ```alias alan="/path/to/alan"```. If you've done either of these, Alan can be run by simply typing ```alan your_alignment.fa```.
+
+To make things even easier, you may wish to add the directory containing the ```alan``` executable to your ```$PATH``` by editing the ```.bashrc``` (or ```.zhrc``` if you're on a mac) file in your home directory (e.g. add the line ```PATH=$PATH:/path/to/alan_dir```). Alternatively you can specify a shortcut in your ```.bashrc``` or ```.bash_aliases``` file by adding the line ```alias alan="/path/to/alan"```. If you've done either of these, Alan can be run by simply typing ```alan your_alignment.fa```.
 
 Alan sometimes struggles with larger alignments.
 
