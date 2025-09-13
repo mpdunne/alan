@@ -5,43 +5,57 @@
 
 Alan is a simple, light command line alignment viewer, for viewing amino acid and DNA alignments in a linux terminal.
 
-It can be used for viewing FASTA or Clustal format alignment files, and relies on just a few standard unix packages.
-
-Current Alan version (2.1.0): https://github.com/mpdunne/Alan
+It can be used for viewing FASTA or Clustal format alignment files, and relies on just a few standard unix tools (```less```, ```awk```, ```sed```, ```grep``` among others).
 
 
 Examples
 =====
 
+Here's an amino acid sequence alignment, viewed using Alan:
+
 ![Alt Text](http://empede.co.uk/imgrepos/aa.png "Alan Davies")
+
+A DNA sequence alignment:
+
 ![Alt Text](http://empede.co.uk/imgrepos/cds.png "Alan Rickman")
 
 
-Usage
-=====
-
-Alan is essentially a modified version of the ubiquitous ```less``` text reader. It uses a number of very common unix tools (```awk```, ```sed```, ```grep``` among others).
+Basic usage
+===========
 
 The ```alan``` command should be ready to use straight out of the box - no installation is required. Just type:
 
-```/path/to/alan your_alignment.fa```
+```bash
+/path/to/alan your_alignment.fa
+```
 
 Where ```/path/to/alan``` is wherever you've saved the `alan` file in this repo.
 
-To make things even easier, you may wish to add the directory containing the ```alan``` executable to your ```$PATH``` by editing the ```.bashrc``` (or ```.zhrc``` if you're on a mac) file in your home directory (e.g. add the line ```PATH=$PATH:/path/to/alan_dir```). Alternatively you can specify a shortcut in your ```.bashrc``` or ```.bash_aliases``` file by adding the line ```alias alan="/path/to/alan"```. If you've done either of these, Alan can be run by simply typing ```alan your_alignment.fa```.
+To make things even easier, you can "install" alan by adding the directory containing the ```alan``` executable to your ```$PATH```, using:
+  ```
+  # Ubuntu/etc:
+  echo 'PATH=$PATH:/path/to/alan_dir' > ~/.bashrc
 
-Alan sometimes struggles with larger alignments.
+  # Use this one if you're on mac (probably):
+  #echo 'PATH=$PATH:/path/to/alan_dir' > ~/.zshrc
+  
+  source ~/.bashrc
+  ```
+
+If you've done this, Alan can be run by simply typing ```alan your_alignment.fa```.
 
 File types and options
 ======================
 
-Alan works on FASTA and Clustal format alignments. It's a very basic alignment reader, and any other alignment formats will confuse it. If this is an issue, convert files before viewing. The choice of file format (FASTA or Clustal) is detected automatically. Alan has been principally tested with FASTA files -- raise a support request if you have any trouble with Clustal files.
+Alan works on FASTA and Clustal format alignments. Any other alignment formats will confuse it. The choice of file format (FASTA or Clustal) is detected automatically.
 
 If no information on molecule type is supplied, Alan will try to detect whether an alignment is composed of protein or nucleotide sequences, and will display them accordingly. To override this, use the options ```-n``` for nucleotides, or ```-p``` for protein sequences.
 
 To navigate the alignment, use the keyboard arrow keys. The amount by which an alignment is shifted using the arrow keys can be set using the ```-s``` or ```--shift``` options, followed by a numeric value. The default is 10.
 
 Alan uses ```less``` as its main viewer, and so any other in-viewer commands contained in less will also work in Alan. This includes searching (use ```/```), and more: see https://en.wikipedia.org/wiki/Less_(Unix) for a few.
+
+Alan sometimes struggles with larger alignments.
 
 Colours
 =======
