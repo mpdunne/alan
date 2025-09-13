@@ -10,6 +10,13 @@ It can be used for viewing FASTA or Clustal format alignment files, and relies o
 Current Alan version (2.1.0): https://github.com/mpdunne/Alan
 
 
+Examples
+=====
+
+![Alt Text](http://empede.co.uk/imgrepos/aa.png "Alan Davies")
+![Alt Text](http://empede.co.uk/imgrepos/cds.png "Alan Rickman")
+
+
 Usage
 =====
 
@@ -69,12 +76,6 @@ These are tab-delimited text files, and are embedded in the alan script itself. 
 To include a custom colour file, include a ```colp.csv``` or ```coln.csv``` file (for protein and nucleotides respectively) in the same directory as the ```alan``` file, the contents of which should be in the same format as the above. Alternatively, if you wish to use multiple colour schemes for different purposes, you may wish to explicitly refer to a colour scheme file using the ```--colp``` or ```--coln``` options. For example:
 
 ```alan my_alignment.fa --colp my_colours.csv```. 
-
-Examples
-=====
-
-![Alt Text](http://empede.co.uk/imgrepos/aa.png "Alan Davies")
-![Alt Text](http://empede.co.uk/imgrepos/cds.png "Alan Rickman")
 
 
 The Alan museum
